@@ -12,12 +12,15 @@ module.exports = function(grunt) {
         livereload: true
       },
       compass: {
-        files: ['./css/**/*.scss' ],
+        files: ['css/**/*.scss' ],
         tasks: ['compass']
       },
       js: {
-        files: ['<%= jshint.files %>', './js/*.hbs'],
+        files: ['<%= jshint.files %>', 'js/*.hbs'],
         tasks: ['webpack', 'jshint']
+      },
+      demo: {
+        files: ['index.html']
       }
     },
 
@@ -25,8 +28,8 @@ module.exports = function(grunt) {
       build: {
         options: {
           outputStyle: 'compressed',
-          sassDir: './css',
-          cssDir: './dist',
+          sassDir: 'css',
+          cssDir: 'dist',
           relativeAssets: true,
           raw: "Sass::Script::Number.precision = 10\n"
         }
@@ -41,7 +44,8 @@ module.exports = function(grunt) {
       },
       files: [
         'index.js',
-        './js/*.js'
+        'js/*.js',
+        'demo/*.js'
       ]
     },
 
@@ -75,12 +79,12 @@ module.exports = function(grunt) {
         cache: true,
         watch: true,
         plugins: [
-          new webpack.optimize.UglifyJsPlugin({minimize: true})
+          //new webpack.optimize.UglifyJsPlugin({minimize: true})
         ]
       },
       build: {
         output: {
-          path: './dist/',
+          path: 'dist/',
           filename: '[name].js'
         }
       }

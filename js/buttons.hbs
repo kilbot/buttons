@@ -1,0 +1,18 @@
+{{#each buttons}}
+  {{#if this.link}}
+  <a href="#" class="btn {{this.className}}"
+   {{#if this.action}}data-action="{{this.action}}"{{/if}}
+   {{#if this.toggle}}data-toggle="{{this.toggle}}"{{/if}}
+  >
+    {{this.label}}
+  </a>
+  {{else}}
+  <button class="btn {{this.className}}"
+    {{#if this.action}}data-action="{{this.action}}"{{/if}}
+    {{#if this.toggle}}data-toggle="{{this.toggle}}"{{/if}}
+    {{#if this.disabled}}disabled{{/if}}
+  >
+    {{this.label}}
+  </button>
+  {{/if}}
+{{/each}}

@@ -44,10 +44,30 @@
    */
   var Behavior3 = Mn.ItemView.extend({
     template: hbs.compile('' +
-      '<button class="btn" data-action="save">' +
+      '<button class="btn" data-action="save" data-loading>' +
       'Button</button> ' +
       '<a class="btn" href="#" data-action="save" data-loading="working...">' +
-      'Link</a>'
+      'Link</a> ' +
+      '<input type="button" class="btn" value="Input" data-action="save"' +
+      'data-loading="waiting...">'
+    ),
+    behaviors: {
+      Buttons: {
+        behaviorClass: Buttons.Behavior
+      }
+    }
+  });
+
+  /**
+   * Behavior 4
+   */
+  var Behavior4 = Mn.ItemView.extend({
+    template: hbs.compile('' +
+      '<button class="btn" data-action="save" data-icon>' +
+      'Button</button> ' +
+      '<a class="btn" href="#" data-action="save" data-icon="append">' +
+      'Link</a> ' +
+      '<input type="button" class="btn" value="Input" data-action="save">'
     ),
     behaviors: {
       Buttons: {
@@ -76,7 +96,7 @@
     },{
       action: 'save',
       label: 'Link',
-      link: true
+      type: 'link'
     }]
   });
 
@@ -105,9 +125,35 @@
     },{
       action: 'save',
       label: 'Link',
-      link: true,
+      type: 'link',
       loading: 'text',
       loadingText: 'working...'
+    },{
+      action: 'save',
+      label: 'Input',
+      type: 'input',
+      loading: 'text',
+      loadingText: 'waiting...'
+    }]
+  });
+
+  /**
+   * Service 5
+   */
+  var Service5 = bb.Radio.request('buttons', 'view', {
+    buttons: [{
+      action: 'save',
+      label: 'Button',
+      icon: 'prepend'
+    },{
+      action: 'save',
+      label: 'Link',
+      type: 'link',
+      icon: 'append'
+    },{
+      action: 'save',
+      label: 'Input',
+      type: 'input'
     }]
   });
 
@@ -153,6 +199,17 @@
         }, 2000);
       });
 
+      var b4 = this.showChildView( 'b4', new Behavior4() );
+      b4.currentView.on('action:save', function(btn){
+        var state = 'reset';
+        if( btn.is('a') ) { state = 'success'; }
+        if( btn.is('input') ) { state = 'error'; }
+        btn.trigger('state', 'loading');
+        setTimeout(function(){
+          btn.trigger('state', state);
+        }, 2000);
+      });
+
       var s1 = this.showChildView( 's1', Service1 );
       s1.currentView.on('action:save', output);
 
@@ -170,6 +227,17 @@
         btn.trigger('state', 'loading');
         setTimeout(function(){
           btn.trigger('state', 'reset');
+        }, 2000);
+      });
+
+      var s5 = this.showChildView( 's5', Service5 );
+      s5.currentView.on('action:save', function(btn){
+        var state = 'reset';
+        if( btn.is('a') ) { state = 'success'; }
+        if( btn.is('input') ) { state = 'error'; }
+        btn.trigger('state', 'loading');
+        setTimeout(function(){
+          btn.trigger('state', state);
         }, 2000);
       });
     }

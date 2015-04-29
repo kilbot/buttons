@@ -53,10 +53,44 @@ module.exports = Mn.Behavior.extend({
   },
 
   setState: function(e, state){
-    state === 'loading' ? this.disable() : this.enable();
-    var text = $(e.target).text();
-    var loadingText = $(e.target).data('loading') || this.loadingText;
-    $(e.target).data('loading', text).text(loadingText);
+    var btn = $(e.target);
+    var prop = state === 'loading' ? 'disable' : 'enable';
+    this[prop]();
+    this.updateText(btn);
+    if( btn.is('input') ){
+      this.updateInput(btn, state);
+    } else {
+      this.updateIcon(btn, state);
+    }
+
+  },
+
+  updateText: function(btn){
+    if(btn.data('loading') === undefined){ return; }
+    var val  = btn.is('input') ? 'val' : 'html';
+    var text = btn[val]();
+    var loadingText = btn.data('loading') || this.loadingText;
+    btn.data('loading', text);
+    btn[val](loadingText);
+  },
+
+  updateIcon: function(btn, state){
+    if(btn.data('icon') === undefined){ return; }
+    var pos = btn.data('icon') || 'prepend';
+    var icon = state !== 'reset' ? '<i class="icon-' + state + '"></i>' : '';
+    btn.children('i').remove();
+    btn[pos](icon);
+  },
+
+  updateInput: function(btn, state){
+    btn.removeClass('loading success error');
+    if(state !== 'reset'){
+      btn.addClass(state);
+    }
+  },
+
+  updateMessage: function(){
+
   }
 
 });

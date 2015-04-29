@@ -109,10 +109,44 @@
 	  },
 
 	  setState: function(e, state){
-	    state === 'loading' ? this.disable() : this.enable();
-	    var text = $(e.target).text();
-	    var loadingText = $(e.target).data('loading') || this.loadingText;
-	    $(e.target).data('loading', text).text(loadingText);
+	    var btn = $(e.target);
+	    var prop = state === 'loading' ? 'disable' : 'enable';
+	    this[prop]();
+	    this.updateText(btn);
+	    if( btn.is('input') ){
+	      this.updateInput(btn, state);
+	    } else {
+	      this.updateIcon(btn, state);
+	    }
+
+	  },
+
+	  updateText: function(btn){
+	    if(btn.data('loading') === undefined){ return; }
+	    var val  = btn.is('input') ? 'val' : 'html';
+	    var text = btn[val]();
+	    var loadingText = btn.data('loading') || this.loadingText;
+	    btn.data('loading', text);
+	    btn[val](loadingText);
+	  },
+
+	  updateIcon: function(btn, state){
+	    if(btn.data('icon') === undefined){ return; }
+	    var pos = btn.data('icon') || 'prepend';
+	    var icon = state !== 'reset' ? '<i class="icon-' + state + '"></i>' : '';
+	    btn.children('i').remove();
+	    btn[pos](icon);
+	  },
+
+	  updateInput: function(btn, state){
+	    btn.removeClass('loading success error');
+	    if(state !== 'reset'){
+	      btn.addClass(state);
+	    }
+	  },
+
+	  updateMessage: function(){
+
 	  }
 
 	});
@@ -168,8 +202,8 @@
 
 	var Mn = __webpack_require__(3);
 	var hbs = __webpack_require__(7);
-	var tmpl = __webpack_require__(8);
-	//var _ = require('lodash');
+	var tmpl = __webpack_require__(9);
+	var _ = __webpack_require__(8);
 	//var $ = require('jquery');
 	var Buttons = __webpack_require__(1);
 
@@ -189,6 +223,10 @@
 	  },
 
 	  templateHelpers: function(){
+	    _.each(this.buttons, function(button){
+	      var type = button.type || 'button';
+	      button[type] = true;
+	    });
 	    return {
 	      buttons: this.buttons
 	    };
@@ -212,7 +250,13 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "{{#each buttons}}\n  {{#if this.link}}\n  <a href=\"#\" class=\"btn {{this.className}}\"\n   {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n   {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n   {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n  >\n    {{this.label}}\n  </a>\n  {{else}}\n  <button class=\"btn {{this.className}}\"\n    {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n    {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n    {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    {{#if this.disabled}}disabled{{/if}}\n  >\n    {{this.label}}\n  </button>\n  {{/if}}\n{{/each}}"
+	module.exports = _;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "{{#each buttons}}\n\n  {{#if this.button}}\n  <button class=\"btn {{this.className}}\"\n    {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n    {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n    {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    {{#if this.icon}}data-icon=\"{{this.icon}}\"{{/if}}\n    {{#if this.disabled}}disabled{{/if}}\n  >\n    {{this.label}}\n  </button>\n  {{/if}}\n\n  {{#if this.link}}\n    <a href=\"#\" class=\"btn {{this.className}}\"\n       {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n      {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n      {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n      {{#if this.icon}}data-icon=\"{{this.icon}}\"{{/if}}\n      >\n      {{this.label}}\n    </a>\n  {{/if}}\n\n  {{#if this.input}}\n    <input type=\"button\" class=\"btn {{this.className}}\" value=\"{{this.label}}\"\n      {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n      {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n      {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    >\n  {{/if}}\n\n  {{#if this.message}}\n    <p class=\"{{this.className}}\" {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}>\n      {{this.message}}\n    </p>\n  {{/if}}\n\n{{/each}}"
 
 /***/ }
 /******/ ]);

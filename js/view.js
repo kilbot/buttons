@@ -1,7 +1,7 @@
 var Mn = require('backbone.marionette');
 var hbs = require('handlebars');
 var tmpl = require('./buttons.hbs');
-//var _ = require('lodash');
+var _ = require('lodash');
 //var $ = require('jquery');
 var Buttons = require('./behavior.js');
 
@@ -21,6 +21,10 @@ module.exports = Mn.ItemView.extend({
   },
 
   templateHelpers: function(){
+    _.each(this.buttons, function(button){
+      var type = button.type || 'button';
+      button[type] = true;
+    });
     return {
       buttons: this.buttons
     };

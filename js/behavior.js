@@ -6,9 +6,10 @@ module.exports = Mn.Behavior.extend({
   loadingText: 'loading...',
 
   ui: {
-    btns  : '.btn',
-    action: '[data-action]',
-    toggle: '[data-toggle]'
+    btns    : '.btn',
+    action  : '[data-action]',
+    toggle  : '[data-toggle]',
+    message : '.message'
   },
 
   events: {
@@ -89,8 +90,8 @@ module.exports = Mn.Behavior.extend({
     }
   },
 
-  updateMessage: function(){
-
+  onMessage: function(message){
+    this.ui.message.html(message);
   }
 
 });

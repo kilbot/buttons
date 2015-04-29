@@ -441,6 +441,11 @@ th {
 #page > ol li {
   margin-bottom: 10px;
 }
+/* line 6, ../css/partials/_scaffold.scss */
+#page > ol li p {
+  display: inline;
+  margin: 0 10px;
+}
 
 /* line 2, ../css/partials/_buttons.scss */
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {

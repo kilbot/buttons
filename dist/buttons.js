@@ -62,9 +62,10 @@
 	  loadingText: 'loading...',
 
 	  ui: {
-	    btns  : '.btn',
-	    action: '[data-action]',
-	    toggle: '[data-toggle]'
+	    btns    : '.btn',
+	    action  : '[data-action]',
+	    toggle  : '[data-toggle]',
+	    message : '.message'
 	  },
 
 	  events: {
@@ -145,8 +146,8 @@
 	    }
 	  },
 
-	  updateMessage: function(){
-
+	  onMessage: function(message){
+	    this.ui.message.html(message);
 	  }
 
 	});
@@ -256,7 +257,7 @@
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "{{#each buttons}}\n\n  {{#if this.button}}\n  <button class=\"btn {{this.className}}\"\n    {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n    {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n    {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    {{#if this.icon}}data-icon=\"{{this.icon}}\"{{/if}}\n    {{#if this.disabled}}disabled{{/if}}\n  >\n    {{this.label}}\n  </button>\n  {{/if}}\n\n  {{#if this.link}}\n    <a href=\"#\" class=\"btn {{this.className}}\"\n       {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n      {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n      {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n      {{#if this.icon}}data-icon=\"{{this.icon}}\"{{/if}}\n      >\n      {{this.label}}\n    </a>\n  {{/if}}\n\n  {{#if this.input}}\n    <input type=\"button\" class=\"btn {{this.className}}\" value=\"{{this.label}}\"\n      {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n      {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n      {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    >\n  {{/if}}\n\n  {{#if this.message}}\n    <p class=\"{{this.className}}\" {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}>\n      {{this.message}}\n    </p>\n  {{/if}}\n\n{{/each}}"
+	module.exports = "{{#each buttons}}\n\n  {{#if this.button}}\n  <button class=\"btn {{this.className}}\"\n    {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n    {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n    {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    {{#if this.icon}}data-icon=\"{{this.icon}}\"{{/if}}\n    {{#if this.disabled}}disabled{{/if}}\n  >\n    {{this.label}}\n  </button>\n  {{/if}}\n\n  {{#if this.link}}\n    <a href=\"#\" class=\"btn {{this.className}}\"\n       {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n      {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n      {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n      {{#if this.icon}}data-icon=\"{{this.icon}}\"{{/if}}\n      >\n      {{this.label}}\n    </a>\n  {{/if}}\n\n  {{#if this.input}}\n    <input type=\"button\" class=\"btn {{this.className}}\" value=\"{{this.label}}\"\n      {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n      {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n      {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    >\n  {{/if}}\n\n  {{#if this.message}}\n    <p class=\"message {{this.className}}\"></p>\n  {{/if}}\n\n{{/each}}"
 
 /***/ }
 /******/ ]);

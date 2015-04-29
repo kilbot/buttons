@@ -32,9 +32,7 @@
   {{/if}}
 
   {{#if this.message}}
-    <p class="{{this.className}}" {{#if this.loading}}data-loading="{{this.loadingText}}"{{/if}}>
-      {{this.message}}
-    </p>
+    <p class="message {{this.className}}"></p>
   {{/if}}
 
 {{/each}}

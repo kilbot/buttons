@@ -10,39 +10,39 @@
       Buttons = window.Buttons;
 
   /**
-   * Behavior 1
+   * Behavior
    */
-  var Behavior1 = Mn.ItemView.extend({
-    template: hbs.compile('' +
-      '<button class="btn" data-action="save">Button</button> ' +
-      '<a class="btn" href="#" data-action="save">Link</a>'
-    ),
+  var ButtonsView = Mn.ItemView.extend({
     behaviors: {
       Buttons: {
         behaviorClass: Buttons.Behavior
       }
     }
+  });
+  /**
+   * Behavior 1
+   */
+  var Behavior1 = ButtonsView.extend({
+    template: hbs.compile('' +
+      '<button class="btn" data-action="save">Button</button> ' +
+      '<a class="btn" href="#" data-action="save">Link</a>'
+    )
   });
 
   /**
    * Behavior 2
    */
-  var Behavior2 = Mn.ItemView.extend({
+  var Behavior2 = ButtonsView.extend({
     template: hbs.compile('' +
       '<button class="btn" data-toggle="one">Toggle 1</button> ' +
       '<button class="btn" data-toggle="two" disabled>Toggle 2</button>'
-    ),
-    behaviors: {
-      Buttons: {
-        behaviorClass: Buttons.Behavior
-      }
-    }
+    )
   });
 
   /**
    * Behavior 3
    */
-  var Behavior3 = Mn.ItemView.extend({
+  var Behavior3 = ButtonsView.extend({
     template: hbs.compile('' +
       '<button class="btn" data-action="save" data-loading>' +
       'Button</button> ' +
@@ -50,30 +50,33 @@
       'Link</a> ' +
       '<input type="button" class="btn" value="Input" data-action="save"' +
       'data-loading="waiting...">'
-    ),
-    behaviors: {
-      Buttons: {
-        behaviorClass: Buttons.Behavior
-      }
-    }
+    )
   });
 
   /**
    * Behavior 4
    */
-  var Behavior4 = Mn.ItemView.extend({
+  var Behavior4 = ButtonsView.extend({
     template: hbs.compile('' +
       '<button class="btn" data-action="save" data-icon>' +
       'Button</button> ' +
       '<a class="btn" href="#" data-action="save" data-icon="append">' +
       'Link</a> ' +
       '<input type="button" class="btn" value="Input" data-action="save">'
-    ),
-    behaviors: {
-      Buttons: {
-        behaviorClass: Buttons.Behavior
-      }
-    }
+    )
+  });
+
+  /**
+   * Behavior 5
+   */
+  var Behavior5 = ButtonsView.extend({
+    template: hbs.compile('' +
+      '<button class="btn" data-action="save" data-icon>' +
+      'Button</button> ' +
+      '<p class="message"></p>' +
+      '<a class="btn" href="#" data-action="save" data-icon="append">' +
+      'Link</a> '
+    )
   });
 
   /**
@@ -158,6 +161,24 @@
   });
 
   /**
+   * Service 6
+   */
+  var Service6 = bb.Radio.request('buttons', 'view', {
+    buttons: [{
+      action: 'save',
+      label: 'Button',
+      icon: 'prepend'
+    },{
+      type: 'message'
+    },{
+      action: 'save',
+      label: 'Link',
+      type: 'link',
+      icon: 'append'
+    }]
+  });
+
+  /**
    * App
    */
   function output(){
@@ -179,9 +200,14 @@
       s2: '#s2',
       s3: '#s3',
       s4: '#s4',
-      s5: '#s5'
+      s5: '#s5',
+      s6: '#s6'
     },
     onRender: function(){
+
+      /**
+       * Behavior events
+       */
       var b1 = this.showChildView( 'b1', new Behavior1() );
       b1.currentView.on('action:save', output);
 
@@ -210,6 +236,26 @@
         }, 2000);
       });
 
+      var b5 = this.showChildView( 'b5', new Behavior5() );
+      b5.currentView.on('action:save', function(btn, view){
+        var state = 'success';
+        var message = 'It has been done!';
+        if( btn.is('a') ) {
+          state = 'error';
+          message = 'There has been a problem :(';
+        }
+        btn.trigger('state', 'loading');
+        view.triggerMethod('message', 'loading...');
+        setTimeout(function(){
+          btn.trigger('state', state);
+          view.triggerMethod('message', message);
+        }, 2000);
+      });
+
+
+      /**
+       * Service events
+       */
       var s1 = this.showChildView( 's1', Service1 );
       s1.currentView.on('action:save', output);
 
@@ -240,6 +286,23 @@
           btn.trigger('state', state);
         }, 2000);
       });
+
+      var s6 = this.showChildView( 's6', Service6 );
+      s6.currentView.on('action:save', function(btn, view){
+        var state = 'success';
+        var message = 'It has been done!';
+        if( btn.is('a') ) {
+          state = 'error';
+          message = 'There has been a problem :(';
+        }
+        btn.trigger('state', 'loading');
+        view.triggerMethod('message', 'loading...');
+        setTimeout(function(){
+          btn.trigger('state', state);
+          view.triggerMethod('message', message);
+        }, 2000);
+      });
+
     }
   });
 

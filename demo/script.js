@@ -40,6 +40,23 @@
   });
 
   /**
+   * Behavior 3
+   */
+  var Behavior3 = Mn.ItemView.extend({
+    template: hbs.compile('' +
+      '<button class="btn" data-action="save">' +
+      'Button</button> ' +
+      '<a class="btn" href="#" data-action="save" data-loading="working...">' +
+      'Link</a>'
+    ),
+    behaviors: {
+      Buttons: {
+        behaviorClass: Buttons.Behavior
+      }
+    }
+  });
+
+  /**
    * Service
    */
   var buttonService = new Buttons.Service();
@@ -78,6 +95,23 @@
   });
 
   /**
+   * Service 4
+   */
+  var Service4 = bb.Radio.request('buttons', 'view', {
+    buttons: [{
+      action: 'save',
+      label: 'Button',
+      loading: 'text'
+    },{
+      action: 'save',
+      label: 'Link',
+      link: true,
+      loading: 'text',
+      loadingText: 'working...'
+    }]
+  });
+
+  /**
    * App
    */
   function output(){
@@ -111,6 +145,14 @@
         'toggle:two': output
       });
 
+      var b3 = this.showChildView( 'b3', new Behavior3() );
+      b3.currentView.on('action:save', function(btn){
+        btn.trigger('state', 'loading');
+        setTimeout(function(){
+          btn.trigger('state', 'reset');
+        }, 2000);
+      });
+
       var s1 = this.showChildView( 's1', Service1 );
       s1.currentView.on('action:save', output);
 
@@ -121,6 +163,14 @@
       s3.currentView.on({
         'toggle:one': output,
         'toggle:two': output
+      });
+
+      var s4 = this.showChildView( 's4', Service4 );
+      s4.currentView.on('action:save', function(btn){
+        btn.trigger('state', 'loading');
+        setTimeout(function(){
+          btn.trigger('state', 'reset');
+        }, 2000);
       });
     }
   });

@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     compass: {
       build: {
         options: {
-          outputStyle: 'compressed',
+          //outputStyle: 'compressed',
           sassDir: 'css',
           cssDir: 'dist',
           relativeAssets: true,

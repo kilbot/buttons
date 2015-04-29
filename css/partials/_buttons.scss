@@ -1,0 +1,10 @@
+.btn {
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: default;
+    pointer-events: none; // Future-proof disabling of clicks
+    @include opacity(.65);
+    @include box-shadow(none);
+  }
+}

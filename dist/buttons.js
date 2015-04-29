@@ -56,8 +56,10 @@
 
 	var Mn = __webpack_require__(3);
 	var $ = __webpack_require__(4);
+	var d = 'disabled';
 
 	module.exports = Mn.Behavior.extend({
+	  loadingText: 'loading...',
 
 	  ui: {
 	    btns  : '.btn',
@@ -67,41 +69,51 @@
 
 	  events: {
 	    'click @ui.action': 'action',
-	    'click @ui.toggle': 'toggle'
+	    'click @ui.toggle': 'toggle',
+	    'state @ui.btns'  : 'setState'
 	  },
 
 	  action: function(e){
 	    e.preventDefault();
 	    var action = $(e.target).data('action');
-	    this.view.trigger('action:' + action, action, this.view, $(e.target));
+	    this.view.trigger('action:' + action, $(e.target), this.view, action );
 	  },
 
 	  toggle: function(e){
 	    e.preventDefault();
-	    this.enable();
-	    this.disable($(e.target));
+	    this.enable().disable($(e.target));
 	    var toggle = $(e.target).data('toggle');
-	    this.view.trigger('toggle:' + toggle, toggle, this.view, $(e.target));
+	    this.view.trigger('toggle:' + toggle, $(e.target), this.view, toggle);
 	  },
 
 	  enable: function(btn){
 	    if(btn){
-	      return btn.prop('disabled', false);
+	      btn.removeClass(d).prop(d, false);
+	    } else {
+	      this.ui.btns.each(function(){
+	        $(this).removeClass(d).prop(d, false);
+	      });
 	    }
-	    this.ui.btns.each(function(){
-	      $(this).prop('disabled', false);
-	    });
+	    return this;
 	  },
 
 	  disable: function(btn){
 	    if(btn){
-	      return btn.prop('disabled', true);
+	      btn.addClass(d).prop(d, true);
+	    } else {
+	      this.ui.btns.each(function(){
+	        $(this).addClass(d).prop(d, true);
+	      });
 	    }
-	    this.ui.btns.each(function(){
-	      $(this).prop('disabled', true);
-	    });
-	  }
+	    return this;
+	  },
 
+	  setState: function(e, state){
+	    state === 'loading' ? this.disable() : this.enable();
+	    var text = $(e.target).text();
+	    var loadingText = $(e.target).data('loading') || this.loadingText;
+	    $(e.target).data('loading', text).text(loadingText);
+	  }
 
 	});
 
@@ -200,7 +212,7 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "{{#each buttons}}\n  {{#if this.link}}\n  <a href=\"#\" class=\"btn {{this.className}}\"\n   {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n   {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n  >\n    {{this.label}}\n  </a>\n  {{else}}\n  <button class=\"btn {{this.className}}\"\n    {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n    {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n    {{#if this.disabled}}disabled{{/if}}\n  >\n    {{this.label}}\n  </button>\n  {{/if}}\n{{/each}}"
+	module.exports = "{{#each buttons}}\n  {{#if this.link}}\n  <a href=\"#\" class=\"btn {{this.className}}\"\n   {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n   {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n   {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n  >\n    {{this.label}}\n  </a>\n  {{else}}\n  <button class=\"btn {{this.className}}\"\n    {{#if this.action}}data-action=\"{{this.action}}\"{{/if}}\n    {{#if this.toggle}}data-toggle=\"{{this.toggle}}\"{{/if}}\n    {{#if this.loading}}data-loading=\"{{this.loadingText}}\"{{/if}}\n    {{#if this.disabled}}disabled{{/if}}\n  >\n    {{this.label}}\n  </button>\n  {{/if}}\n{{/each}}"
 
 /***/ }
 /******/ ]);

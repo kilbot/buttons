@@ -237,18 +237,16 @@
       });
 
       var b5 = this.showChildView( 'b5', new Behavior5() );
-      b5.currentView.on('action:save', function(btn, view){
+      b5.currentView.on('action:save', function(btn){
         var state = 'success';
         var message = 'It has been done!';
         if( btn.is('a') ) {
           state = 'error';
           message = 'There has been a problem :(';
         }
-        btn.trigger('state', 'loading');
-        view.triggerMethod('message', 'loading...');
+        btn.trigger('state', [ 'loading', null ]);
         setTimeout(function(){
-          btn.trigger('state', state);
-          view.triggerMethod('message', message);
+          btn.trigger('state', [ state, message ]);
         }, 2000);
       });
 
@@ -288,18 +286,16 @@
       });
 
       var s6 = this.showChildView( 's6', Service6 );
-      s6.currentView.on('action:save', function(btn, view){
+      s6.currentView.on('action:save', function(btn){
         var state = 'success';
         var message = 'It has been done!';
         if( btn.is('a') ) {
           state = 'error';
           message = 'There has been a problem :(';
         }
-        btn.trigger('state', 'loading');
-        view.triggerMethod('message', 'loading...');
+        btn.trigger('state', [ 'loading', null ]);
         setTimeout(function(){
-          btn.trigger('state', state);
-          view.triggerMethod('message', message);
+          btn.trigger('state', [ state, message ]);
         }, 2000);
       });
 

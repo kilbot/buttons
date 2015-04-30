@@ -8,3 +8,13 @@
     @include box-shadow(none);
   }
 }
+
+input.loading {
+  background-color: yellow;
+}
+input.success {
+  background-color: green;
+}
+input.error {
+  background-color: red;
+}

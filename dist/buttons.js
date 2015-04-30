@@ -56,6 +56,7 @@
 
 	var Mn = __webpack_require__(3);
 	var $ = __webpack_require__(4);
+	var _ = __webpack_require__(5);
 	var d = 'disabled';
 
 	module.exports = Mn.Behavior.extend({
@@ -109,9 +110,9 @@
 	    return this;
 	  },
 
-	  setState: function(e, state){
-	    var btn = $(e.target);
-	    var prop = state === 'loading' ? 'disable' : 'enable';
+	  setState: function(e, state, message){
+	    var btn = $(e.target),
+	      prop = state === 'loading' ? 'disable' : 'enable';
 	    this[prop]();
 	    this.updateText(btn);
 	    if( btn.is('input') ){
@@ -119,7 +120,9 @@
 	    } else {
 	      this.updateIcon(btn, state);
 	    }
-
+	    if(message !== undefined){
+	      this.updateMessage(message, state);
+	    }
 	  },
 
 	  updateText: function(btn){
@@ -146,8 +149,29 @@
 	    }
 	  },
 
-	  onMessage: function(message){
-	    this.ui.message.html(message);
+	  updateMessage: function(message, state){
+	    if(message === null){
+	      message = _.capitalize(state);
+	    }
+	    if(!state){
+	      state = message;
+	      message = _.capitalize(message);
+	    }
+	    if(state === 'reset'){
+	      message = '';
+	    }
+	    this.ui.message
+	      .removeClass('loading success error')
+	      .addClass(state)
+	      .html(message);
+	  },
+
+	  onMessage: function(message, state){
+	    this.updateMessage(message, state);
+	  },
+
+	  onDisableButtons: function(){
+	    this.disable();
 	  }
 
 	});
@@ -157,8 +181,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Mn = __webpack_require__(3);
-	var Radio = __webpack_require__(5);
-	var View = __webpack_require__(6);
+	var Radio = __webpack_require__(6);
+	var View = __webpack_require__(7);
 
 	module.exports = Mn.Object.extend({
 
@@ -195,17 +219,22 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = Backbone.Radio;
+	module.exports = _;
 
 /***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = Backbone.Radio;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Mn = __webpack_require__(3);
-	var hbs = __webpack_require__(7);
+	var hbs = __webpack_require__(8);
 	var tmpl = __webpack_require__(9);
-	var _ = __webpack_require__(8);
-	//var $ = require('jquery');
+	var _ = __webpack_require__(5);
 	var Buttons = __webpack_require__(1);
 
 	module.exports = Mn.ItemView.extend({
@@ -242,16 +271,10 @@
 	});
 
 /***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = Handlebars;
-
-/***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = _;
+	module.exports = Handlebars;
 
 /***/ },
 /* 9 */

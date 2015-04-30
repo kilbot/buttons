@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         tasks: ['webpack', 'jshint']
       },
       demo: {
-        files: ['index.html']
+        files: ['demo/index.html']
       }
     },
 

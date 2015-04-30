@@ -2,7 +2,6 @@ var Mn = require('backbone.marionette');
 var hbs = require('handlebars');
 var tmpl = require('./buttons.hbs');
 var _ = require('lodash');
-//var $ = require('jquery');
 var Buttons = require('./behavior.js');
 
 module.exports = Mn.ItemView.extend({

@@ -1,0 +1,47 @@
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-success:before {
+  content: "\f00c";
+}
+.icon-error:before {
+  content: "\f00d";
+}
+.icon-cog:before {
+  content: "\f013";
+}
+.icon-spinner:before {
+  content: "\e600";
+}
+
+.spinner {
+  @include animation(spin 2s infinite linear);
+  text-shadow: 0 0 .25em rgba(255,255,255, .3);
+}
+.spinner--steps8 {
+  @extend .spinner;
+  @include animation(spin 1s infinite steps(8));
+}
+.spinner--steps12 {
+  @extend .spinner;
+  @include animation(spin 1s infinite steps(12));
+}
+
+@include keyframes(spin) {
+  0% { @include rotate(0); }
+  100% { @include rotate(360deg); }
+}
+
+.icon-loading {
+  @extend .spinner;
+  @extend .icon-cog;
+}

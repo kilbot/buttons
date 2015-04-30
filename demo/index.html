@@ -13,45 +13,16 @@
       font-weight: normal;
       font-style: normal;
     }
-    [class^="icon-"], [class*=" icon-"] {
-      font-family: 'icons';
-      speak: none;
-      font-style: normal;
-      font-weight: normal;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      /* Better Font Rendering =========== */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .icon-success:before {
-      content: "\f00c";
-    }
-    .icon-error:before {
-      content: "\f00d";
-    }
-    .icon-loading {
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      background: url(../img/loader.gif);
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-    }
-    input.loading {
-      background-color: yellow;
-    }
-    input.success {
-      background-color: green;
-    }
-    input.error {
-      background-color: red;
-    }
   </style>
 </head>
 <body>
 <div id="page">
+  <p>
+    <i class="icon-spinner spinner--steps12"></i>
+    <span class="inverse"><i class="icon-spinner spinner--steps12"></i></span>
+    <i class="icon-cog spinner"></i>
+    <span class="inverse"><i class="icon-cog spinner"></i></span>
+  </p>
   <h1>Button Behaviors</h1>
   <ol>
     <li id="b1"></li>

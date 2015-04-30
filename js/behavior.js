@@ -1,5 +1,6 @@
 var Mn = require('backbone.marionette');
 var $ = require('jquery');
+var _ = require('lodash');
 var d = 'disabled';
 
 module.exports = Mn.Behavior.extend({
@@ -53,9 +54,9 @@ module.exports = Mn.Behavior.extend({
     return this;
   },
 
-  setState: function(e, state){
-    var btn = $(e.target);
-    var prop = state === 'loading' ? 'disable' : 'enable';
+  setState: function(e, state, message){
+    var btn = $(e.target),
+      prop = state === 'loading' ? 'disable' : 'enable';
     this[prop]();
     this.updateText(btn);
     if( btn.is('input') ){
@@ -63,7 +64,9 @@ module.exports = Mn.Behavior.extend({
     } else {
       this.updateIcon(btn, state);
     }
-
+    if(message !== undefined){
+      this.updateMessage(message, state);
+    }
   },
 
   updateText: function(btn){
@@ -90,8 +93,29 @@ module.exports = Mn.Behavior.extend({
     }
   },
 
-  onMessage: function(message){
-    this.ui.message.html(message);
+  updateMessage: function(message, state){
+    if(message === null){
+      message = _.capitalize(state);
+    }
+    if(!state){
+      state = message;
+      message = _.capitalize(message);
+    }
+    if(state === 'reset'){
+      message = '';
+    }
+    this.ui.message
+      .removeClass('loading success error')
+      .addClass(state)
+      .html(message);
+  },
+
+  onMessage: function(message, state){
+    this.updateMessage(message, state);
+  },
+
+  onDisableButtons: function(){
+    this.disable();
   }
 
 });

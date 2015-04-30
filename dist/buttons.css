@@ -446,6 +446,12 @@ th {
   display: inline;
   margin: 0 10px;
 }
+/* line 12, ../css/partials/_scaffold.scss */
+#page .inverse {
+  background-color: #444;
+  color: #fff;
+  padding: 5px;
+}
 
 /* line 2, ../css/partials/_buttons.scss */
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
@@ -456,4 +462,119 @@ th {
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+/* line 12, ../css/partials/_buttons.scss */
+input.loading {
+  background-color: yellow;
+}
+
+/* line 15, ../css/partials/_buttons.scss */
+input.success {
+  background-color: green;
+}
+
+/* line 18, ../css/partials/_buttons.scss */
+input.error {
+  background-color: red;
+}
+
+/* line 1, ../css/partials/_icons.scss */
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* line 13, ../css/partials/_icons.scss */
+.icon-success:before {
+  content: "\f00c";
+}
+
+/* line 16, ../css/partials/_icons.scss */
+.icon-error:before {
+  content: "\f00d";
+}
+
+/* line 19, ../css/partials/_icons.scss */
+.icon-cog:before, .icon-loading:before {
+  content: "\f013";
+}
+
+/* line 22, ../css/partials/_icons.scss */
+.icon-spinner:before {
+  content: "\e600";
+}
+
+/* line 26, ../css/partials/_icons.scss */
+.spinner, .spinner--steps8, .spinner--steps12, .icon-loading {
+  -moz-animation: spin 2s infinite linear;
+  -webkit-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+  text-shadow: 0 0 0.25em rgba(255, 255, 255, 0.3);
+}
+
+/* line 30, ../css/partials/_icons.scss */
+.spinner--steps8 {
+  -moz-animation: spin 1s infinite steps(8);
+  -webkit-animation: spin 1s infinite steps(8);
+  animation: spin 1s infinite steps(8);
+}
+
+/* line 34, ../css/partials/_icons.scss */
+.spinner--steps12 {
+  -moz-animation: spin 1s infinite steps(12);
+  -webkit-animation: spin 1s infinite steps(12);
+  animation: spin 1s infinite steps(12);
+}
+
+@-moz-keyframes spin {
+  /* line 40, ../css/partials/_icons.scss */
+  0% {
+    -moz-transform: rotate(0);
+    transform: rotate(0);
+  }
+
+  /* line 41, ../css/partials/_icons.scss */
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  /* line 40, ../css/partials/_icons.scss */
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+
+  /* line 41, ../css/partials/_icons.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  /* line 40, ../css/partials/_icons.scss */
+  0% {
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+
+  /* line 41, ../css/partials/_icons.scss */
+  100% {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

@@ -498,89 +498,81 @@ input.error {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Required for <i> rotate ========= */
+  display: inline-block;
 }
 
-/* line 24, ../css/partials/_icons.scss */
+/* line 26, ../css/partials/_icons.scss */
 .icon-success:before {
   content: "\f00c";
 }
 
-/* line 27, ../css/partials/_icons.scss */
+/* line 29, ../css/partials/_icons.scss */
 .icon-error:before {
   content: "\f00d";
 }
 
-/* line 30, ../css/partials/_icons.scss */
+/* line 32, ../css/partials/_icons.scss */
 .icon-cog:before, .icon-loading:before {
   content: "\f013";
 }
 
-/* line 33, ../css/partials/_icons.scss */
+/* line 35, ../css/partials/_icons.scss */
 .icon-spinner:before {
   content: "\e600";
 }
 
-/* line 37, ../css/partials/_icons.scss */
-.spinner, .spinner--steps8, .spinner--steps12, .icon-loading {
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+/* line 43, ../css/partials/_icons.scss */
+.spinner, .icon-loading {
   -moz-animation: spin 2s infinite linear;
   -webkit-animation: spin 2s infinite linear;
   animation: spin 2s infinite linear;
 }
 
-/* line 41, ../css/partials/_icons.scss */
+/* line 46, ../css/partials/_icons.scss */
 .spinner--steps8 {
   -moz-animation: spin 1s infinite steps(8);
   -webkit-animation: spin 1s infinite steps(8);
   animation: spin 1s infinite steps(8);
 }
 
-/* line 45, ../css/partials/_icons.scss */
+/* line 49, ../css/partials/_icons.scss */
 .spinner--steps12 {
   -moz-animation: spin 1s infinite steps(12);
   -webkit-animation: spin 1s infinite steps(12);
   animation: spin 1s infinite steps(12);
-}
-
-@-moz-keyframes spin {
-  /* line 51, ../css/partials/_icons.scss */
-  0% {
-    -moz-transform: rotate(0);
-    transform: rotate(0);
-  }
-
-  /* line 52, ../css/partials/_icons.scss */
-  100% {
-    -moz-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes spin {
-  /* line 51, ../css/partials/_icons.scss */
-  0% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
-  }
-
-  /* line 52, ../css/partials/_icons.scss */
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes spin {
-  /* line 51, ../css/partials/_icons.scss */
-  0% {
-    -moz-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
-  }
-
-  /* line 52, ../css/partials/_icons.scss */
-  100% {
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
 }
